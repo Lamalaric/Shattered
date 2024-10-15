@@ -25,5 +25,15 @@ public class PlayerMovements : MonoBehaviour
         {
             _playerRb.velocity = new Vector2(_playerRb.velocity.x, speed/2);
         }
+        
+        //Modification de la direction dans laquelle le player regarde
+        if (_playerRb.velocity.x > 0)
+        {
+            _playerRb.transform.localScale = new Vector3(-1, 1, 1);      //Regarde à droite
+        }
+        else
+        {
+            _playerRb.transform.localScale = new Vector3(1, 1, 1);      //Regarde à gauche
+        }
     }
 }
