@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 115851318}
   m_Layer: 0
   m_Name: Grounds
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3358,7 +3358,7 @@ Rigidbody2D:
   m_Mass: 2.18
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -3495,6 +3495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  jumpForce: 25
 --- !u!1 &1643242642
 GameObject:
   m_ObjectHideFlags: 0
