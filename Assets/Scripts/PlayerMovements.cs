@@ -8,10 +8,16 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpCd;
+    [SerializeField] private float dashForce;     // Force du dash
+    [SerializeField] private float dashDuration; // Durée du dash
+    [SerializeField] private float dashCooldown;
     private Rigidbody2D _playerRb;
     private bool _canJump = true;
     private int _jumpCount = 2;
     private float _currentJumpCd;
+    private bool _canDash = true;
+    private bool _isDashing = false;
+    private float _dashDirection;
 
 
     //Récupère le RigidBody au chargement du script
@@ -27,6 +33,7 @@ public class PlayerMovements : MonoBehaviour
         Debug.Log(_jumpCount);
         PlayerMove();
         PlayerJump();
+        PlayerDash();
     }
 
     //Check for specific key press for Left / Right movements
@@ -55,6 +62,7 @@ public class PlayerMovements : MonoBehaviour
             StartCoroutine(JumpRoutine());
         }
     }
+    
     //Indicate wether the player can jump or not
     private bool CanJump()
     {
@@ -83,6 +91,42 @@ public class PlayerMovements : MonoBehaviour
 
         // after the cooldown allow next jump
         _canJump = true;
+    }
+
+    private void PlayerDash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _canDash && !_isDashing)
+        {
+            // Détermine la direction du dash : 1 pour droite, -1 pour gauche
+            _dashDirection = _playerRb.transform.localScale.x > 0 ? -1 : 1;
+            StartCoroutine(DashRoutine());
+        }
+    }
+    
+    private IEnumerator DashRoutine()
+    {
+        // Commence le dash
+        _canDash = false;
+        _isDashing = true;
+
+        // Durée pendant laquelle le dash est actif
+        float dashTime = 0;
+
+        // Applique la force de dash tant que la durée du dash n'est pas atteinte
+        while (dashTime < dashDuration)
+        {
+            _playerRb.velocity = new Vector2(_dashDirection * dashForce, _playerRb.velocity.y);
+            dashTime += Time.deltaTime; // Incrémente le temps du dash
+            yield return null; // Attend la prochaine frame
+        }
+
+        // Termine le dash en remettant la vitesse horizontale à zéro
+        _playerRb.velocity = new Vector2(0, _playerRb.velocity.y);
+        _isDashing = false;
+
+        // Cooldown avant de pouvoir dasher à nouveau
+        yield return new WaitForSeconds(dashCooldown);
+        _canDash = true;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
