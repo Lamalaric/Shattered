@@ -63,12 +63,24 @@ public class PlayerMovements : MonoBehaviour
 
         if (onWall())   //Stick on the wall
         {
+            _animator.SetBool("Wallride", true);
             _playerRb.gravityScale = 0;
             _playerRb.velocity = Vector2.zero;
+
+            if (Input.GetKeyDown(KeyCode.Space))    //Walljump
+            {
+                _animator.SetBool("Wallride", false);
+                _playerRb.gravityScale = 4;
+                //Proceed to the jump
+                _playerRb.velocity = new Vector2(Mathf.Sign(transform.localScale.x)*10, jumpForce/2);
+                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
         }
         else    //Reset gravity if unstick the wall
         {
             _playerRb.gravityScale = 4;
+
+            _animator.SetBool("Wallride", false);
         }
     }
     //Indicate wether the player can jump or not
@@ -105,20 +117,12 @@ public class PlayerMovements : MonoBehaviour
     private bool isGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
-        return raycastHit.collider != null;
+        return raycastHit.collider;
     }
 
     private bool onWall()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, new Vector2(transform.localScale.x, 0), 0.1f, LayerMask.GetMask("Ground"));
         return raycastHit.collider != null;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        // if (collision.gameObject.CompareTag("ground"))
-        // {
-        //     _jumpCount = 2;
-        // }
     }
 }
