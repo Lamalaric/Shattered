@@ -13,11 +13,14 @@ public class PlayerMovements : MonoBehaviour
     private int _jumpCount = 2;
     private float _currentJumpCd;
 
+    private Animator _animator;
+
 
     //Récupère le RigidBody au chargement du script
     private void Awake()
     {
         _playerRb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
         _currentJumpCd = jumpCd;
     }
 
@@ -33,18 +36,22 @@ public class PlayerMovements : MonoBehaviour
     private void PlayerMove()
     {
         //Déplacements GAUCHE - DROITE
-        _playerRb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, _playerRb.velocity.y);
+        float horizontal = Input.GetAxis("Horizontal");
+        _playerRb.velocity = new Vector2(horizontal * speed, _playerRb.velocity.y);
         
         
         //Modification de la direction dans laquelle le player regarde
-        if (_playerRb.velocity.x > 0)
+        if (_playerRb.velocity.x < -0.01f)
         {
             _playerRb.transform.localScale = new Vector3(-1, 1, 1);      //Regarde à droite
         }
-        else
+        else if (_playerRb.velocity.x > 0.01f)
         {
             _playerRb.transform.localScale = new Vector3(1, 1, 1);      //Regarde à gauche
         }
+
+        //Animation
+        _animator.SetBool("Run", horizontal != 0);
     }
     
     //Check for a Spacebar click to make the player jump
