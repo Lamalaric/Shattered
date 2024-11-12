@@ -138,8 +138,8 @@ public class PlayerMovements : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canDash && !_isDashing)
         {
-            // Détermine la direction du dash : 1 pour droite, -1 pour gauche
-            _dashDirection = _playerRb.transform.localScale.x > 0 ? -1 : 1;
+            // Détermine la direction du dash
+            _dashDirection = _playerRb.transform.localScale.x > 0 ? 1 : -1;
             StartCoroutine(DashRoutine());
         }
     }
