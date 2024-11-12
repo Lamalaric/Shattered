@@ -12,25 +12,29 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float dashDuration; // Durée du dash
     [SerializeField] private float dashCooldown;
     private Rigidbody2D _playerRb;
+    private BoxCollider2D _boxCollider;
     private bool _canJump = true;
-    private int _jumpCount = 2;
+    private int _jumpCount = 1;
     private float _currentJumpCd;
     private bool _canDash = true;
     private bool _isDashing = false;
     private float _dashDirection;
+
+    private Animator _animator;
 
 
     //Récupère le RigidBody au chargement du script
     private void Awake()
     {
         _playerRb = GetComponent<Rigidbody2D>();
+        _boxCollider = GetComponent<BoxCollider2D>();
+        _animator = GetComponent<Animator>();
         _currentJumpCd = jumpCd;
     }
 
     //Appelé à chaque frame
     void Update()
     {
-        Debug.Log(_jumpCount);
         PlayerMove();
         PlayerJump();
         PlayerDash();
@@ -40,33 +44,58 @@ public class PlayerMovements : MonoBehaviour
     private void PlayerMove()
     {
         //Déplacements GAUCHE - DROITE
-        _playerRb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, _playerRb.velocity.y);
+        float horizontal = Input.GetAxis("Horizontal");
+        _playerRb.velocity = new Vector2(horizontal * speed, _playerRb.velocity.y);
         
         
         //Modification de la direction dans laquelle le player regarde
-        if (_playerRb.velocity.x > 0)
+        if (_playerRb.velocity.x < -0.01f)
         {
             _playerRb.transform.localScale = new Vector3(-1, 1, 1);      //Regarde à droite
         }
-        else
+        else if (_playerRb.velocity.x > 0.01f)
         {
             _playerRb.transform.localScale = new Vector3(1, 1, 1);      //Regarde à gauche
         }
+
+        //Animation
+        _animator.SetBool("Run", horizontal != 0);
     }
     
     //Check for a Spacebar click to make the player jump
     private void PlayerJump()
     {
-        if (Input.GetKey(KeyCode.Space) && CanJump())
-        {
+        if (Input.GetKey(KeyCode.Space) && CanJump())   //Classic jump
             StartCoroutine(JumpRoutine());
+
+        if (onWall())   //Stick on the wall
+        {
+            _animator.SetBool("Wallride", true);
+            _playerRb.gravityScale = 0;
+            _playerRb.velocity = Vector2.zero;
+
+            if (Input.GetKeyDown(KeyCode.Space))    //Walljump
+            {
+                _animator.SetBool("Wallride", false);
+                _playerRb.gravityScale = 4;
+                //Proceed to the jump
+                _playerRb.velocity = new Vector2(Mathf.Sign(transform.localScale.x)*10, jumpForce/2);
+                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+        }
+        else    //Reset gravity if unstick the wall
+        {
+            _playerRb.gravityScale = 4;
+
+            _animator.SetBool("Wallride", false);
         }
     }
     
     //Indicate wether the player can jump or not
     private bool CanJump()
     {
-        Debug.Log("Nb of jumps:"+_jumpCount+",    Cooldown:"+_currentJumpCd);
+        //Reset the nb of jump if on ground
+        if (isGrounded()) _jumpCount = 1;
         //If no more jump left
         if (_jumpCount <= 0) return false;
         //If the cooldown for jump is not ready
@@ -93,6 +122,18 @@ public class PlayerMovements : MonoBehaviour
         _canJump = true;
     }
 
+    private bool isGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
+        return raycastHit.collider;
+    }
+
+    private bool onWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, new Vector2(transform.localScale.x, 0), 0.1f, LayerMask.GetMask("Ground"));
+        return raycastHit.collider != null;
+    }
+    
     private void PlayerDash()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canDash && !_isDashing)
@@ -127,13 +168,5 @@ public class PlayerMovements : MonoBehaviour
         // Cooldown avant de pouvoir dasher à nouveau
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("ground"))
-        {
-            _jumpCount = 2;
-        }
     }
 }
