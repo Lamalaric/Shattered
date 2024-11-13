@@ -143,7 +143,6 @@ public class PlayerMovements : MonoBehaviour
             StartCoroutine(DashRoutine());
         }
     }
-    
     private IEnumerator DashRoutine()
     {
         // Commence le dash
