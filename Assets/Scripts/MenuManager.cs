@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    void Awake()
+    void Start()
     {
+        SceneManager.LoadScene("Main Menu");
+
         //Subscribe to the mainmenu gamestate event
         //TODO
     }
