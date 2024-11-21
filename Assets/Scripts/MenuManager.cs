@@ -8,8 +8,6 @@ public class MenuManager : MonoBehaviour
 {
     void Start()
     {
-        SceneManager.LoadScene("Main Menu");
-
         //Subscribe to the mainmenu gamestate event
         //TODO
     }
