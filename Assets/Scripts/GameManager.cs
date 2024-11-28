@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public static UnityEvent OnWinGame;
+    public static int currentSceneSave = 1;
     public GameState state;
 
     void Awake()
