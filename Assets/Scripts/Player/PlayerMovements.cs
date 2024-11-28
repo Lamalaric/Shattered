@@ -19,6 +19,7 @@ public class PlayerMovements : MonoBehaviour
     private bool _canDash = true;
     private bool _isDashing = false;
     private float _dashDirection;
+    private Vector2 _wallJumpPower = new Vector2(8f, 16f);
 
     private Animator _animator;
 
@@ -43,6 +44,9 @@ public class PlayerMovements : MonoBehaviour
     //Check for specific key press for Left / Right movements
     private void PlayerMove()
     {
+        //Impossible si on est sur le wall
+        if (OnWall()) return;
+
         //Déplacements GAUCHE - DROITE
         float horizontal = Input.GetAxis("Horizontal");
         _playerRb.velocity = new Vector2(horizontal * speed, _playerRb.velocity.y);
@@ -68,25 +72,27 @@ public class PlayerMovements : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && CanJump())   //Classic jump
             StartCoroutine(JumpRoutine());
 
-        if (onWall())   //Stick on the wall
+        if (OnWall() && !IsGrounded())   //Wallride vers le bas
         {
             _animator.SetBool("Wallride", true);
-            _playerRb.gravityScale = 0;
-            _playerRb.velocity = Vector2.zero;
 
-            if (Input.GetKeyDown(KeyCode.Space))    //Walljump
+            //Slide
+            _playerRb.velocity = new Vector2(_playerRb.velocity.x,
+                Mathf.Clamp(_playerRb.velocity.y, -2f, float.MaxValue));
+
+            //Walljump
+            if (Input.GetKey(KeyCode.Space))
             {
                 _animator.SetBool("Wallride", false);
                 _playerRb.gravityScale = 4;
                 //Proceed to the jump
-                _playerRb.velocity = new Vector2(Mathf.Sign(transform.localScale.x)*10, jumpForce/2);
-                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                _playerRb.velocity = new Vector2(-1f * transform.localScale.x*_wallJumpPower.x, _wallJumpPower.y);
+                transform.localScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
         }
         else    //Reset gravity if unstick the wall
         {
             _playerRb.gravityScale = 4;
-
             _animator.SetBool("Wallride", false);
         }
     }
@@ -95,7 +101,7 @@ public class PlayerMovements : MonoBehaviour
     private bool CanJump()
     {
         //Reset the nb of jump if on ground
-        if (isGrounded()) _jumpCount = 1;
+        if (IsGrounded()) _jumpCount = 1;
         //If no more jump left
         if (_jumpCount <= 0) return false;
         //If the cooldown for jump is not ready
@@ -114,6 +120,7 @@ public class PlayerMovements : MonoBehaviour
         //Proceed to the jump
         _playerRb.velocity = new Vector2(_playerRb.velocity.x, jumpForce/2);
         _jumpCount--;      //Remove 1 jump count
+        // _animator.SetBool("Jump", true);
 
         //Waits for 3 seconds and then will come back here
         yield return new WaitForSeconds(jumpCd);
@@ -122,13 +129,13 @@ public class PlayerMovements : MonoBehaviour
         _canJump = true;
     }
 
-    private bool isGrounded()
+    private bool IsGrounded()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
+        RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, Vector2.down, .2f, LayerMask.GetMask("Ground"));
         return raycastHit.collider;
     }
 
-    private bool onWall()
+    private bool OnWall()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, new Vector2(transform.localScale.x, 0), 0.1f, LayerMask.GetMask("Ground"));
         return raycastHit.collider != null;
