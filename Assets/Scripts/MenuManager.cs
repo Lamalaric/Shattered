@@ -20,7 +20,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(GameManager.currentSceneSave);
     }
 
     public void WinGame()

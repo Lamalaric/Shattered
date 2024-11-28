@@ -11,6 +11,7 @@ public class DoorController : MonoBehaviour
     public void CompleteLevel()
     {
         Debug.Log($"Level {nextScene} completed");
+        GameManager.currentSceneSave = nextScene;
 
         //On affiche la prochaine scène
         SceneManager.LoadScene(nextScene);
