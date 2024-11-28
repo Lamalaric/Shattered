@@ -23,9 +23,8 @@ public class GameManager : MonoBehaviour
         // OnWinGame.AddListener(GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().OnWinGame);
     }
 
-    public void UpdateGameState(GameState gameState)
+    public static void UpdateGameState(GameState gameState)
     {
-        state = gameState;
         switch (gameState)
         {
             case GameState.MainMenu:
@@ -35,12 +34,20 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Play:
                 break;
+            case GameState.Lose:
+                OnLoseGame();
+                break;
             default:
                 throw new System.Exception("Game state is invalid");
         }
 
         //Raise an event when changing the gamestate
         //TODO
+    }
+
+    private static void OnLoseGame()
+    {
+        SceneManager.LoadScene("Lose menu");
     }
 }
 

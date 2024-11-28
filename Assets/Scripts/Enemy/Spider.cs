@@ -34,11 +34,10 @@ public class Spider : MonoBehaviour, IDestroyable, IEnemy
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log(other.tag);
         //Attaque le player pour {damage} PV
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             MakeDamage(other.gameObject.GetComponent<IDestroyable>(), damage);
         }

@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
+    [SerializeField] private int nextScene;
+
     public void CompleteLevel()
     {
-        Debug.Log("Level completed");
-        SceneManager.LoadScene("Win Menu");
+        Debug.Log($"Level {nextScene} completed");
+
+        //On affiche la prochaine scène
+        SceneManager.LoadScene(nextScene);
     }
 }
