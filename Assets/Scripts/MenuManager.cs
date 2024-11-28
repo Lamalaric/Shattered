@@ -8,6 +8,15 @@ public class MenuManager : MonoBehaviour
 {
     void Start()
     {
+        
+        if (SceneManager.GetActiveScene().name.Contains("Menu"))
+        {
+            GameObject uiHUD = GameObject.Find("YourCanvasName");
+            if (uiHUD != null)
+            {
+                uiHUD.SetActive(false);
+            }
+        }
         //Subscribe to the mainmenu gamestate event
         //TODO
     }

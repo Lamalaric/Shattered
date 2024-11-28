@@ -885,6 +885,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1948965133}
+    - target: {fileID: 62785192172599592, guid: 72688f19bc2c20f47b3b8bbce079e681, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 1948965133}
     - target: {fileID: 3596912465568255301, guid: 72688f19bc2c20f47b3b8bbce079e681, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -924,6 +928,10 @@ PrefabInstance:
     - target: {fileID: 3596912465568255301, guid: 72688f19bc2c20f47b3b8bbce079e681, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270259138153418297, guid: 72688f19bc2c20f47b3b8bbce079e681, type: 3}
+      propertyPath: orthographic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7303448256886906761, guid: 72688f19bc2c20f47b3b8bbce079e681, type: 3}
       propertyPath: m_Name
@@ -1122,6 +1130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   maxHealth: 25
+  heartManager: {fileID: 0}
 --- !u!58 &1948965140
 CircleCollider2D:
   m_ObjectHideFlags: 0
