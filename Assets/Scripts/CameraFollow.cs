@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,11 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float followSpeed = 2f;
     [SerializeField] private float yOffset = 1f;
     [SerializeField] private Transform target;
+
+    private void Start()
+    {
+        this.GetComponent<Camera>().orthographicSize = 6;
+    }
 
     // Update is called once per frame
     void Update()
