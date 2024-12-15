@@ -7850,6 +7850,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1241302783606537126, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1402790042133027445, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -8095,6 +8099,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7601424169866273814, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
       insertIndex: -1
       addedObject: {fileID: 374427007}
+    - targetCorrespondingSourceObject: {fileID: 2467050386112373447, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
 --- !u!1 &374427005 stripped
 GameObject:
