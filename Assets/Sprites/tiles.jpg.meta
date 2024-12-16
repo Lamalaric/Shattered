@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 105
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,10 +134,10 @@ TextureImporter:
       name: tiles_1
       rect:
         serializedVersion: 2
-        x: 567
-        y: 784
-        width: 227
-        height: 220
+        x: 569
+        y: 786
+        width: 224
+        height: 217
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: tiles_3
       rect:
         serializedVersion: 2
-        x: 567
-        y: 532
-        width: 227
-        height: 220
+        x: 571
+        y: 533
+        width: 220
+        height: 216
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       name: tiles_6
       rect:
         serializedVersion: 2
-        x: 302
+        x: 305
         y: 28
-        width: 227
-        height: 220
+        width: 218
+        height: 216
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -407,10 +407,10 @@ TextureImporter:
       name: tiles_17
       rect:
         serializedVersion: 2
-        x: 9
+        x: 11
         y: 530
-        width: 107
-        height: 98
+        width: 104
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,10 +428,10 @@ TextureImporter:
       name: tiles_18
       rect:
         serializedVersion: 2
-        x: 155
-        y: 530
-        width: 106
-        height: 98
+        x: 156
+        y: 531
+        width: 104
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
