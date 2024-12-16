@@ -45,13 +45,13 @@ public class PlayerMovements : MonoBehaviour
     private void PlayerMove()
     {
         //Impossible si on est sur le wall
-        if (OnWall()) return;
+        // if (OnWall()) return;
 
         //Déplacements GAUCHE - DROITE
         float horizontal = Input.GetAxis("Horizontal");
         _playerRb.velocity = new Vector2(horizontal * speed, _playerRb.velocity.y);
-        
-        
+
+
         //Modification de la direction dans laquelle le player regarde
         if (_playerRb.velocity.x < -0.01f)
         {
@@ -65,7 +65,7 @@ public class PlayerMovements : MonoBehaviour
         //Animation
         _animator.SetBool("Run", horizontal != 0);
     }
-    
+
     //Check for a Spacebar click to make the player jump
     private void PlayerJump()
     {
@@ -96,7 +96,7 @@ public class PlayerMovements : MonoBehaviour
             _animator.SetBool("Wallride", false);
         }
     }
-    
+
     //Indicate wether the player can jump or not
     private bool CanJump()
     {
@@ -106,7 +106,7 @@ public class PlayerMovements : MonoBehaviour
         if (_jumpCount <= 0) return false;
         //If the cooldown for jump is not ready
         if (_currentJumpCd < jumpCd) return false;
-        
+
         return true;
     }
 
@@ -140,7 +140,7 @@ public class PlayerMovements : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, new Vector2(transform.localScale.x, 0), 0.1f, LayerMask.GetMask("Ground"));
         return raycastHit.collider != null;
     }
-    
+
     private void PlayerDash()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canDash && !_isDashing)

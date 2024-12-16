@@ -24,6 +24,5 @@ public class HealthManager : MonoBehaviour
 
         healthBar.fillAmount = currentHealth / maxHealth;
         healthText.text = currentHealth.ToString();
-        Debug.Log(healthBar.fillAmount);
     }
 }
