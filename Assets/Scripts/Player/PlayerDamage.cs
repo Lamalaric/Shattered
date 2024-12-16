@@ -18,8 +18,6 @@ public class PlayerDamage : MonoBehaviour, IDestroyable
     }
     private void Update()
     {
-        Debug.Log("Health: "+health);
-
         //Kill player if he hits lava floor
         if (HitLava()) TakeDamage(maxHealth);
     }

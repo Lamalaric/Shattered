@@ -7726,6 +7726,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 163566332581542441, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 545889724343191195, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -8099,9 +8103,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7601424169866273814, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
       insertIndex: -1
       addedObject: {fileID: 374427007}
-    - targetCorrespondingSourceObject: {fileID: 2467050386112373447, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c80824714c1b7b2488294665b77a2f51, type: 3}
 --- !u!1 &374427005 stripped
 GameObject:
