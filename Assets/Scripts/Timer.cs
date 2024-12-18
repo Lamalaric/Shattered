@@ -8,12 +8,21 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
     public static float ElapsedTime;
+    public static bool IsPaused = false;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        ElapsedTime += (float)Math.Round(Time.deltaTime, 2);
-        timerText.text = ElapsedTime.ToString("0.00") + "s";
+        if (IsPaused == false)
+        {
+            ElapsedTime += (float)Math.Round(Time.deltaTime, 2);
+            timerText.text = ElapsedTime.ToString("0.00") + "s";
+        }
+    }
+
+    public static void PauseTimer()
+    {
+        IsPaused = !IsPaused;
     }
 
     public static float GetElapsedTime()
