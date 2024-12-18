@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpForce: 25
-  jumpCd: 0.2
+  jumpCd: 0.3
   dashForce: 25
   dashDuration: 0.15
   dashCooldown: 0.2
@@ -264,3 +264,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
+  healthText: {fileID: 0}
