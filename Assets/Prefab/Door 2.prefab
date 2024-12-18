@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 636703602210597340}
   - component: {fileID: 7502541181639408415}
   m_Layer: 0
-  m_Name: Door
+  m_Name: Door 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5.06, y: 13.244, z: 0}
-  m_LocalScale: {x: 3.1, y: 3.1, z: 3.1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3029822744585327732}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1731850241, guid: b5b0a123ad8bbc44aa06e2ea1642e731, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06e02d626b974494fa2a369deb7e7f31, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
