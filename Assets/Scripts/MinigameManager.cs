@@ -32,7 +32,9 @@ public class MinigameManager : MonoBehaviour
     public void ShowMiniGameCanvas()
     {
         miniGameCanvas.SetActive(true);
+        ClearAllTargets();
         score = 0;
+        scoreText.text = "0";
         timeRemaining = gameDuration;
         miniGameActive = true;
         Timer.PauseTimer();
@@ -42,7 +44,6 @@ public class MinigameManager : MonoBehaviour
     {
         playButton.gameObject.SetActive(false);
         sidePanel.gameObject.SetActive(true);
-        scoreText.text = "0";
         StartCoroutine(MiniGameCoroutine());
     }
 
@@ -58,7 +59,7 @@ public class MinigameManager : MonoBehaviour
         for (int i = 0; i < targetsToSpawn; i++)
         {
             SpawnTarget();
-            yield return new WaitForSeconds(0.5f); // Intervalle entre les cibles
+            yield return new WaitForSeconds(1f); // Intervalle entre les cibles
         }
 
         // Quand toutes les cibles sont apparues, on attend que le timer atteigne 0
@@ -75,7 +76,7 @@ public class MinigameManager : MonoBehaviour
         while (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
-            timerText.text = "Temps : " + Mathf.Clamp(timeRemaining, 0, gameDuration).ToString("F1");
+            timerText.text = Mathf.Clamp(timeRemaining, 0, gameDuration).ToString("F1");
             yield return null; // Attend chaque frame
         }
     }
@@ -87,8 +88,8 @@ public class MinigameManager : MonoBehaviour
         RectTransform spawnRect = spawnZone.GetComponent<RectTransform>();
 
         // Position locale aléatoire dans le RectTransform
-        float randomX = Random.Range(spawnRect.rect.xMin, spawnRect.rect.xMax);
-        float randomY = Random.Range(spawnRect.rect.yMin, spawnRect.rect.yMax);
+        float randomX = Random.Range(spawnRect.rect.xMin+100, spawnRect.rect.xMax-100);
+        float randomY = Random.Range(spawnRect.rect.yMin+100, spawnRect.rect.yMax-100);
         Vector2 localPosition = new Vector2(randomX, randomY);
 
         // Instancie la cible en tant qu'enfant du Canvas
@@ -118,7 +119,13 @@ public class MinigameManager : MonoBehaviour
     {
         Destroy(target);
         score++;
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString() + "/" + targetsToSpawn.ToString();
+
+        if (score >= targetsToSpawn)
+        {
+            StopAllCoroutines();
+            EndMiniGame();
+        }
     }
 
     public void EndMiniGame()
