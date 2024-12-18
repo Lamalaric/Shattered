@@ -36,6 +36,9 @@ public class PlayerMovements : MonoBehaviour
     //Appelé à chaque frame
     void Update()
     {
+        //Impossible si on est dans mini-jeu
+        if (Timer.IsPaused) return;
+
         PlayerMove();
         PlayerJump();
         PlayerDash();

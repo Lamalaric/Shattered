@@ -45,6 +45,11 @@ public class PlayerDamage : MonoBehaviour, IDestroyable
         return raycastHit.collider;
     }
 
+    public void addHealth(float value)
+    {
+        health += value;
+        if (health > maxHealth) health = maxHealth;
+    }
     public float getMaxHealth() { return maxHealth; }
     public float getCurrHealth() { return health; }
     public void setCurrHealth(float value) { health = value; }
