@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class DoorController : MonoBehaviour
 {
     [SerializeField] private int nextScene;
-    private int nbOfLevels = 3;
+    private int nbOfLevels = 5;
 
     public void CompleteLevel()
     {

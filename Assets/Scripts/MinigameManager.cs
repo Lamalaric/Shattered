@@ -42,6 +42,7 @@ public class MinigameManager : MonoBehaviour
     {
         playButton.gameObject.SetActive(false);
         sidePanel.gameObject.SetActive(true);
+        scoreText.text = "0";
         StartCoroutine(MiniGameCoroutine());
     }
 
