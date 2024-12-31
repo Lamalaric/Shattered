@@ -22,6 +22,10 @@ public class PlayerMovements : MonoBehaviour
     private Vector2 _wallJumpPower = new Vector2(8f, 16f);
 
     private Animator _animator;
+    
+    public AudioSource audioSource;  // Audio Source attachée au joueur
+    public AudioClip jumpSFX;
+    public AudioClip dashSFX;
 
 
     //Récupère le RigidBody au chargement du script
@@ -124,6 +128,9 @@ public class PlayerMovements : MonoBehaviour
         _playerRb.velocity = new Vector2(_playerRb.velocity.x, jumpForce/2);
         _jumpCount--;      //Remove 1 jump count
         // _animator.SetBool("Jump", true);
+        
+        //Play jump sound
+        audioSource.PlayOneShot(jumpSFX);
 
         //Waits for 3 seconds and then will come back here
         yield return new WaitForSeconds(jumpCd);
@@ -168,6 +175,8 @@ public class PlayerMovements : MonoBehaviour
             _playerRb.velocity = new Vector2(_dashDirection * dashForce, _playerRb.velocity.y);
             dashTime += Time.deltaTime; // Incrémente le temps du dash
             yield return null; // Attend la prochaine frame
+            //Play dash sound
+            audioSource.PlayOneShot(dashSFX);
         }
 
         // Termine le dash en remettant la vitesse horizontale à zéro

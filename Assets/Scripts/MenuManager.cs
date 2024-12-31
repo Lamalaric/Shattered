@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    
+    public AudioSource menuMusic;
     void Start()
     {
         //Subscribe to the mainmenu gamestate event
@@ -20,6 +22,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
+        menuMusic.Stop(); // Stop menu music
         SceneManager.LoadScene(GameManager.currentSceneSave);
     }
 

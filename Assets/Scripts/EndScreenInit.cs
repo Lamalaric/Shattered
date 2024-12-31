@@ -9,6 +9,12 @@ public class EndScreenInit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PersistentMusic musicManager = FindObjectOfType<PersistentMusic>();
+        if (musicManager != null)
+        {
+            musicManager.StopMusic(); // Arrête la musique
+        }
+        
         //retrieve le temps pour l'afficher
         Debug.Log(GameManager.time);
         float formattedTime = float.Parse(GameManager.time.Remove(GameManager.time.Length - 1));
