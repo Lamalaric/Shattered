@@ -8,6 +8,9 @@ public class Spider : MonoBehaviour, IDestroyable, IEnemy
     [SerializeField] private float damage;
     [SerializeField] private float maxHealth;
     private float health;
+    
+    public AudioSource audioSource;  // Audio Source attachée au joueur
+    public AudioClip punchSFX;
 
     private void Start()
     {
@@ -17,6 +20,8 @@ public class Spider : MonoBehaviour, IDestroyable, IEnemy
     //Make damage to the player
     public void MakeDamage(IDestroyable target, float value)
     {
+        //Play punch sound
+        audioSource.PlayOneShot(punchSFX);
         target.TakeDamage(value);
     }
     //Receive damage

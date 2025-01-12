@@ -10,6 +10,9 @@ public class PlayerDamage : MonoBehaviour, IDestroyable
     [SerializeField] private float maxHealth;
     private float health;
     private BoxCollider2D _boxCollider;
+    
+    public AudioSource audioSource;  // Audio Source attachée au joueur
+    public AudioClip healSFX;
 
     private void Start()
     {
@@ -47,6 +50,8 @@ public class PlayerDamage : MonoBehaviour, IDestroyable
 
     public void addHealth(float value)
     {
+        //Play heal sound
+        audioSource.PlayOneShot(healSFX);
         health += value;
         if (health > maxHealth) health = maxHealth;
     }
