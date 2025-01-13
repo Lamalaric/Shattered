@@ -22,9 +22,8 @@ public class PlayerMovements : MonoBehaviour
     private Vector2 _wallJumpPower = new Vector2(8f, 16f);
 
     private Animator _animator;
-    
-    public AudioSource audioSourceJump;  // Audio Source attachée au joueur
-    public AudioSource audioSourceDash;
+
+    public AudioSource audioSource;  // Audio Source attachée au joueur
     public AudioClip jumpSFX;
     public AudioClip dashSFX;
 
@@ -131,7 +130,7 @@ public class PlayerMovements : MonoBehaviour
         // _animator.SetBool("Jump", true);
         
         //Play jump sound
-        audioSourceJump.PlayOneShot(jumpSFX);
+        audioSource.PlayOneShot(jumpSFX);
 
         //Waits for 3 seconds and then will come back here
         yield return new WaitForSeconds(jumpCd);
@@ -173,11 +172,11 @@ public class PlayerMovements : MonoBehaviour
         // Applique la force de dash tant que la durée du dash n'est pas atteinte
         while (dashTime < dashDuration)
         {
+            audioSource.PlayOneShot(dashSFX);
             _playerRb.velocity = new Vector2(_dashDirection * dashForce, _playerRb.velocity.y);
             dashTime += Time.deltaTime; // Incrémente le temps du dash
             yield return null; // Attend la prochaine frame
         }
-        audioSourceDash.PlayOneShot(dashSFX);
         // Termine le dash en remettant la vitesse horizontale à zéro
         _playerRb.velocity = new Vector2(0, _playerRb.velocity.y);
         _isDashing = false;
