@@ -369,7 +369,7 @@ MonoBehaviour:
   dashCooldown: 0.2
   audioSource: {fileID: 7601751785627261703}
   jumpSFX: {fileID: 8300000, guid: bfbd1c86fab381a4682dfc2ca263a049, type: 3}
-  dashSFX: {fileID: 8300000, guid: 0e95ff13e86af914981d6692c47f0f1d, type: 3}
+  dashSFX: {fileID: 8300000, guid: 385d51fe46d0a9947b298027aaac61c4, type: 3}
 --- !u!114 &7420057340452156672
 MonoBehaviour:
   m_ObjectHideFlags: 0
