@@ -20,6 +20,8 @@ public class PlayerMovements : MonoBehaviour
     private bool _isDashing = false;
     private float _dashDirection;
     private Vector2 _wallJumpPower = new Vector2(8f, 16f);
+    public enum KeyboardLayout { QWERTY, AZERTY }
+    public KeyboardLayout keyboardLayout = KeyboardLayout.QWERTY;
 
     private Animator _animator;
 
@@ -54,8 +56,23 @@ public class PlayerMovements : MonoBehaviour
         //Impossible si on est sur le wall
         // if (OnWall()) return;
 
-        //Déplacements GAUCHE - DROITE
-        float horizontal = Input.GetAxis("Horizontal");
+        //Movements LEFT-RIGHT
+        float horizontal = 0;
+        
+        if (keyboardLayout == KeyboardLayout.AZERTY)
+        {
+            if (Input.GetKey(KeyCode.Q)) horizontal = -1; // Left (AZERTY)
+            if (Input.GetKey(KeyCode.D)) horizontal = 1;  // Right (AZERTY)
+        }
+        else // QWERTY by default
+        {
+            if (Input.GetKey(KeyCode.A)) horizontal = -1; // Left (QWERTY)
+            if (Input.GetKey(KeyCode.D)) horizontal = 1;  // Right (QWERTY)
+        }
+
+        // To play with arrows
+        if (Input.GetKey(KeyCode.LeftArrow)) horizontal = -1; // Left arrow
+        if (Input.GetKey(KeyCode.RightArrow)) horizontal = 1; // Right arrow
         _playerRb.velocity = new Vector2(horizontal * speed, _playerRb.velocity.y);
 
 
