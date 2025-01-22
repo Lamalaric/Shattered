@@ -6,7 +6,25 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject quitConfirmationPopup;
 
+
+    private System.Action confirmAction;
+
+    public void ConfirmAction()
+    {
+        if (confirmAction != null)
+        {
+            confirmAction.Invoke();
+            confirmAction = null;
+        }
+        quitConfirmationPopup.SetActive(false);
+    }
+
+    public void CancelAction()
+    {
+        quitConfirmationPopup.SetActive(false);
+    }
     public void Pause()
     {
         pauseMenu.SetActive(true);  
@@ -27,12 +45,22 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
-        Time.timeScale = 1;
+        quitConfirmationPopup.SetActive(true);
+        // Configurez une action spécifique pour confirmer
+        confirmAction = () =>
+        {
+            SceneManager.LoadScene("Main Menu");
+            Time.timeScale = 1;
+        };
     }
 
     public void Quit()
     {
-        Application.Quit();
+        quitConfirmationPopup.SetActive(true);
+        // Configurez une action spécifique pour confirmer
+        confirmAction = () =>
+        {
+            Application.Quit();
+        };
     }
 }
