@@ -38,7 +38,7 @@ public class SequentialTextDisplay : MonoBehaviour
             yield return new WaitForSeconds(delayBetweenLines);
         }
         yield return new WaitForSeconds(delayBeforeSceneChange);
-        SceneManager.LoadScene(nextScene);
+        SceneManager.LoadScene("Main Menu");
     }
 
 }
