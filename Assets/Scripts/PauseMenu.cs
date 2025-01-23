@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
 
 
     private System.Action confirmAction;
+    
 
     public void ConfirmAction()
     {
@@ -45,22 +46,17 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        quitConfirmationPopup.SetActive(true);
-        // Configurez une action spécifique pour confirmer
-        confirmAction = () =>
+        PersistentMusic musicManager = FindObjectOfType<PersistentMusic>();
+        if (musicManager != null)
         {
-            SceneManager.LoadScene("Main Menu");
-            Time.timeScale = 1;
-        };
+            musicManager.StopMusic(); // Arrête la musique
+        }
+        SceneManager.LoadScene("Main Menu");
+        Time.timeScale = 1;
     }
 
     public void Quit()
     {
-        quitConfirmationPopup.SetActive(true);
-        // Configurez une action spécifique pour confirmer
-        confirmAction = () =>
-        {
-            Application.Quit();
-        };
+        Application.Quit();
     }
 }
