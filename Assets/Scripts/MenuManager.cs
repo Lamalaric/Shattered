@@ -25,6 +25,11 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(GameManager.currentSceneSave);
         menuMusic.Stop(); // Stop menu music
     }
+    public void PlayLevel()
+    {
+        SceneManager.LoadScene("Level1");
+        menuMusic.Stop(); // Stop menu music
+    }
 
     public void WinGame()
     {
