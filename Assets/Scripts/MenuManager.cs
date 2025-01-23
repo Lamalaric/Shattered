@@ -22,8 +22,8 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        menuMusic.Stop(); // Stop menu music
         SceneManager.LoadScene(GameManager.currentSceneSave);
+        menuMusic.Stop(); // Stop menu music
     }
 
     public void WinGame()
